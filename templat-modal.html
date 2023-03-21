@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <title>Tabela de Produtos</title>
+  </head>
+  <body>
+    <h1>Tabela de Produtos</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Linha</th>
+          <th>Potência</th>
+          <th>Conjunto Ótico</th>
+          <th>Temperatura de Cor</th>
+          <th>Cor de Pintura</th>
+          <th>Fixação</th>
+          <th>Adicionais</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-produtos"></tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalProduto">
+      Incluir Produto
+    </button>
+
+    <div class="modal fade" id="modalProduto" tabindex="-1" role="dialog" aria-labelledby="modalProdutoTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalProdutoTitle">Cadastrar Produto</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="form-produto">
+              <div class="form-group">
+                <label for="linha">Linha:</label>
+                <input type="text" class="form-control" id="linha" name="linha" />
+              </div>
+              <div class="form-group">
+                <label for="potencia">Potência:</label>
+                <input type="number" class="form-control" id="potencia" name="potencia" />
+              </div>
+              <div class="form-group">
+                <label for="conjunto-otico">Conjunto Ótico:</label>
+                <input type="text" class="form-control" id="conjunto-otico" name="conjunto-otico" />
+              </div>
+              <div class="form-group">
+                <label for="temperatura-de-cor">Temperatura de Cor:</label>
+                <input type="text" class="form-control" id="temperatura-de-cor" name="temperatura-de-cor" />
+              </div>
+              <div class="form-group">
+                <label for="cor-de-pintura">Cor de Pintura:</label>
+                <input type="text" class="form-control" id="cor-de-pintura" name="cor-de-pintura" />
+              </div>
+              <div class="form-group">
+                <label for="fixacao">Finxação:</label>
+                <input type="text" class="form-control" id="finxacao" name="fixacao" />
+              </div>
+              <div class="form-group">
+                <label for="adicionais">Adicionais:</label>
+                <input type="text" class="form-control" id="adicionais" name="adicionais" />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script>
+     $(document).ready(function () {
+  var tabelaProdutos = $('#tabela-produtos');
+  var formProduto = $('#form-produto');
+
+  var produtos = [];
+
+  function atualizarTabela() {
+    tabelaProdutos.empty();
+    $.each(produtos, function (i, produto) {
+      tabelaProdutos.append(
+        '<tr><td>' +
+          produto.linha +
+          '</td><td>' +
+          produto.potencia +
+          '</td><td>' +
+          produto.conjuntoOtico +
+          '</td><td>' +
+          produto.temperaturaDeCor +
+          '</td><td>' +
+          produto.corDePintura +
+          '</td><td>' +
+          produto.fixacao +
+          '</td><td>' +
+          produto.adicionais +
+          '</td></tr>'
+      );
+    });
+  }
+
+  formProduto.submit(function (e) {
+    e.preventDefault();
+    var produto = {
+      linha: $('#linha').val(),
+      potencia: $('#potencia').val(),
+      conjuntoOtico: $('#conjunto-otico').val(),
+      temperaturaDeCor: $('#temperatura-de-cor').val(),
+      corDePintura: $('#cor-de-pintura').val(),
+      fixacao: $('#fixacao').val(),
+      adicionais: $('#adicionais').val(),
+    };
+    produtos.push(produto);
+    formProduto.trigger('reset');
+    $('#modalProduto').modal('hide');
+    atualizarTabela();
+  });
+});
+
+</script>
+      
